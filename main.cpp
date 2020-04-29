@@ -37,14 +37,15 @@ float sum_distance = 0;
 void FXOS8700CQ_readRegs(int addr, uint8_t * data, int len);
 void FXOS8700CQ_writeRegs(uint8_t * data, int len);
 float CalculateDistance() {
-    float distance = 9.8 * sqrt(t[0] * t[0] + t[1] * t[1] + t[2] * t[2]) * 0.1 * 0.1;
+    float distance = 9.8 * sqrt((t[0]) * (t[0]) + (t[1]) * (t[1])) * 0.1 * 0.1 * 0.5;
     return distance;
-}
-void Blink(){
-    led = !led;
 }
 
 void Logger() {
+    sum_distance = 0;
+    // init[0] = t[0];
+    // init[1] = t[1];
+    // init[2] = t[2];
     for(int i = 0; i < 100; i++) {
         
         if(i % 5 == 0) led = !led;
@@ -67,7 +68,6 @@ void Logger() {
 }
 
 void btn_fall_irq() {
-    sum_distance = 0;
     eventQueue.call(&Logger);
 }
 
